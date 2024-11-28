@@ -34,4 +34,4 @@ export const WHISPER_MODEL = "medium.en";
 /**
  * @type {import('@remotion/install-whisper-cpp').Language}
  */
-export const WHISPER_LANG = "en";
+export const WHISPER_LANG = "es";
