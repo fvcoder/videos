@@ -28,9 +28,23 @@ export const RemotionRoot: React.FC = () => {
         width={1080}
         height={1920}
         fps={30}
-        durationInFrames={60 * 30}
+        durationInFrames={1450}
         defaultProps={{
-          isProd: false
+          "isProd": true,
+          "notes": [
+            {
+              "text": "Decidí bautizarlo como Loproda",
+              "frameStart": 200
+            },
+            {
+              "text": "Para registrarse busquen \"Loproda\" en Google y entren en el primer enlace",
+              "frameStart": 300
+            },
+            {
+              "text": "Mañana les dare un tutorial (mas detallado)",
+              "frameStart": 350
+            }
+          ]
         }}
       />
     </>

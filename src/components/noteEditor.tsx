@@ -1,9 +1,13 @@
+import {z} from 'zod'
 import { interpolate, useCurrentFrame } from "remotion"
 
-export interface NoteEditorProps {
-    readonly text: string
-    readonly frameStart: number
-}
+export const NoteEditorSchema = z.object({
+    text: z.string(),
+    frameStart: z.number(),
+})
+
+export type NoteEditorProps = z.infer<typeof NoteEditorSchema>
+
 export function NoteEditor(props: NoteEditorProps) {
     const frame = useCurrentFrame()
 
