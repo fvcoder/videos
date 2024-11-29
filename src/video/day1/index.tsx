@@ -15,7 +15,7 @@ export const Day1: React.FC<z.infer<typeof day1Schema>> = (props) => {
     <AbsoluteFill className={`relative ${props.isProd ? "bg-black" : "bg-red-500"}`}>
         <div className={`absolute inset-0 size-full `}>
             <OffthreadVideo
-                src={staticFile("day1/video.mp4")}
+                src="https://cdn.fvcoder.com/video/day1/video.mp4"
                 className="size-full"
                 startFrom={70}
                 endAt={1450 + 70}
