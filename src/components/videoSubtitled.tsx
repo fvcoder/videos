@@ -8,9 +8,10 @@ import { getVideoMetadata, VideoMetadata } from "@remotion/media-utils";
 const SWITCH_CAPTIONS_EVERY_MS = 1200;
 
 interface VideoSubtitledProps {
-    url: string
-    jsonStaticDir: string
-    from?: number
+    readonly url: string
+    readonly jsonStaticDir: string
+    readonly from?: number
+    readonly end?: number
 }
 
 export function VideoSubtitled(props: VideoSubtitledProps) {
@@ -32,7 +33,7 @@ export function VideoSubtitled(props: VideoSubtitledProps) {
         } catch (e) {
             cancelRender(e)
         }
-    }, [handle, props.jsonStaticDir])
+    }, [handle, props.jsonStaticDir, props.url])
 
     useEffect(() => {
         fetchSubtitles();
@@ -54,7 +55,10 @@ export function VideoSubtitled(props: VideoSubtitledProps) {
       }, [subtitles]);
     
     return (
-        <Sequence from={props.from ?? 0} durationInFrames={(videoConfig ? videoConfig.durationInSeconds * fps : undefined)  }>
+        <Sequence
+            from={props.from ?? 0}
+            durationInFrames={props.end ? props.end : (videoConfig ? videoConfig.durationInSeconds * fps : undefined)}
+        >
             <AbsoluteFill>
                 <AbsoluteFill>
                     <OffthreadVideo

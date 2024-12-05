@@ -90,8 +90,6 @@ program.action(async (options) => {
         whisperCppOutput
     })
 
-    console.log(captions)
-
     writeFileSync(
         resolve(outputPath, options.jsonOutput ?? "subs.json"),
         JSON.stringify(captions, null, 2),
