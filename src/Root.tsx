@@ -7,6 +7,8 @@ import {
 } from "./CaptionedVideo";
 import { Day1, day1Schema } from './video/day1';
 import { Day2, day2Schema } from './video/day2';
+import { IntroYouTube } from './video-utils/intro-youtube';
+import { OutYouTube } from './video-utils/out-youtube';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -60,6 +62,22 @@ export const RemotionRoot: React.FC = () => {
             }
           ]
         }}
+      />
+      <Composition
+        id="intro-youTube"
+        component={IntroYouTube}
+        width={1920}
+        height={1080}
+        fps={30}
+        durationInFrames={1.5 * 30}
+      />
+      <Composition
+        id="out-youTube"
+        component={OutYouTube}
+        width={1920}
+        height={1080}
+        fps={30}
+        durationInFrames={14.5 * 30}
       />
     </>
   );
