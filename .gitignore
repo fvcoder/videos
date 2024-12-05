@@ -7,3 +7,5 @@ dist
 out
 whisper.cpp
 temp
+
+whisper.cpp

@@ -9,7 +9,8 @@ import {
 } from '@remotion/install-whisper-cpp';
 import { mkdir } from 'fs/promises';
 import { execSync } from 'child_process';
-import { writeFileSync } from 'fs';
+import { existsSync, writeFileSync } from 'fs';
+import ffmpegPath from 'ffmpeg-static';
 
 const aiPath = resolve(process.cwd(), "whisper.cpp");
 const audioPath = resolve(process.cwd(), "temp", "audio.wav")
@@ -19,25 +20,28 @@ const extractToTempAudioFile = (fileToTranscribe, tempOutFile) => {
     // Extracting audio from mp4 and save it as 16khz wav file
     const l = ora("Extracting audio from file").start();
     execSync(
-      `npx remotion ffmpeg -i ${fileToTranscribe} -ar 16000 ${tempOutFile} -y`,
+      `${ffmpegPath} -i ${fileToTranscribe} -ar 16000 ${tempOutFile} -y`,
       { stdio: ["ignore", "inherit"] }
     );
     l.stop();
 };
 
 async function setup() {
+    if (!existsSync(aiPath)) {
+        await installWhisperCpp({
+            "to": aiPath,
+            "printOutput": true,
+            "version": "1.6.0",
+        })
+    }
 
-    await installWhisperCpp({
-        "to": aiPath,
-        "printOutput": true,
-        "version": "1.6.0",
-    })
-
-    await downloadWhisperModel({
-        "folder": aiPath,
-        "model": "medium",
-        "printOutput": true
-    });
+    if (!existsSync(resolve(aiPath, "ggml-medium.bin"))) {
+        await downloadWhisperModel({
+            "folder": aiPath,
+            "model": "medium",
+            "printOutput": true
+        });
+    }
 
     await mkdir(resolve(process.cwd(), "temp"), { recursive: true });
 }
@@ -56,6 +60,7 @@ program.option("--url <url>", "URL of the video to process")
 program.option("--json-output <jsonOutput>", "Path to save the JSON output")
 
 program.action(async (options) => {
+    console.log(ffmpegPath)
     await setup();
     if (!options.url) {
         console.error("Please provide a URL");

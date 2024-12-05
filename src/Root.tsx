@@ -6,6 +6,7 @@ import {
   captionedVideoSchema,
 } from "./CaptionedVideo";
 import { Day1, day1Schema } from './video/day1';
+import { Day2, day2Schema } from './video/day2';
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -19,6 +20,19 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
         defaultProps={{
           src: staticFile("sample-video.mp4"),
+        }}
+      />
+      <Composition 
+        id="day2"
+        component={Day2}
+        schema={day2Schema}
+        width={1080}
+        height={1920}
+        fps={30}
+        durationInFrames={1450}
+        defaultProps={{
+          isProd: false,
+          notes: []
         }}
       />
       <Composition

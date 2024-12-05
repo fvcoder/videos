@@ -14,13 +14,13 @@ const fontFamily = TheBoldFont;
 
 const container: React.CSSProperties = {
   justifyContent: "center",
-  alignItems: "center",
+  alignItems: "start",
   top: undefined,
-  bottom: 350,
+  bottom: 425,
   height: 150,
 };
 
-const DESIRED_FONT_SIZE = 120;
+const DESIRED_FONT_SIZE = 80;
 const HIGHLIGHT_COLOR = "#39E508";
 
 export const Page: React.FC<{
@@ -41,7 +41,7 @@ export const Page: React.FC<{
   const fontSize = Math.min(DESIRED_FONT_SIZE, fittedText.fontSize);
 
   return (
-    <AbsoluteFill style={container}>
+    <AbsoluteFill style={{ ...container, width: width -200}}>
       <div
         style={{
           fontSize,
@@ -56,12 +56,15 @@ export const Page: React.FC<{
           textTransform: "uppercase",
         }}
       >
-        <span
+        <p
           style={{
             transform: makeTransform([
               scale(interpolate(enterProgress, [0, 1], [0.8, 1])),
               translateY(interpolate(enterProgress, [0, 1], [50, 0])),
             ]),
+            width: "100%",
+            paddingLeft: 80,
+            textAlign: "center"
           }}
         >
           {page.tokens.map((t) => {
@@ -77,7 +80,6 @@ export const Page: React.FC<{
                 key={t.fromMs}
                 style={{
                   display: "inline",
-                  whiteSpace: "pre",
                   color: active ? HIGHLIGHT_COLOR : "white",
                 }}
               >
@@ -85,7 +87,7 @@ export const Page: React.FC<{
               </span>
             );
           })}
-        </span>
+        </p>
       </div>
     </AbsoluteFill>
   );
